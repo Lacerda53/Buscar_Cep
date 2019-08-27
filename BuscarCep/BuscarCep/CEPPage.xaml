@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:behaviorPack="clr-namespace:Xamarin.Forms.BehaviorValidationPack;assembly=Xamarin.Forms.BehaviorValidationPack"
+             xmlns:local="clr-namespace:BuscarCep"
+             mc:Ignorable="d"
+             x:Class="BuscarCep.CEPPage">
+
+    <StackLayout Padding="30" Spacing="30" BackgroundColor="#f4f4fb">
+        <Image 
+            Source="icon.png"/>
+
+        <Entry x:Name="CEP"
+            Placeholder="Digite o CEP"
+            PlaceholderColor="#a5a5a7"
+            TextColor="#483f8a"
+            Keyboard="Numeric">
+            <Entry.Behaviors>
+                <behaviorPack:CEPValidationBehavior />
+                <behaviorPack:MaskedBehavior Mask="XXXXX-XXX" />
+            </Entry.Behaviors>
+        </Entry>
+
+        <Button
+            Text="Buscar CEP"
+            TextColor="White"
+            Clicked="BuscarViaCEP"
+            BackgroundColor="#50509c"
+            IsEnabled="{Binding IsDisabled}"/>
+
+        <Label x:Name="Resultado"
+            Text="" 
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+
+        <ActivityIndicator x:Name="actInd"
+                             IsRunning="{Binding IsLoading}"
+                             IsVisible="{Binding IsLoading}" Color="#232343"/>
+    </StackLayout>
+
+</ContentPage>

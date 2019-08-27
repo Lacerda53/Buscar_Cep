@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="BuscarCep.EnderecoPage">
+
+    <StackLayout Padding="30" Spacing="30" BackgroundColor="#f4f4fb">
+        <Image 
+            Source="icon.png"/>
+
+        <Entry x:Name="cidade"
+            Placeholder="Digite o nome da cidade"
+            PlaceholderColor="#a5a5a7"
+            TextColor="#483f8a"
+            Keyboard="Text">
+        </Entry>
+
+        <Entry x:Name="uf"
+            Placeholder="Digite a UF"
+            PlaceholderColor="#a5a5a7"
+            TextColor="#483f8a"
+            Keyboard="Text">
+        </Entry>
+
+        <Entry x:Name="logradouro"
+            Placeholder="Digite o logradouro"
+            PlaceholderColor="#a5a5a7"
+            TextColor="#483f8a"
+            Keyboard="Text">
+        </Entry>
+
+        <Button x:Name="Button"
+            Text="Buscar CEP"
+            TextColor="White"
+            Clicked="BuscarViaEndereco"
+            BackgroundColor="#50509c"
+            IsEnabled="{Binding IsDisabled}"/>
+
+        <ActivityIndicator x:Name="actInd"
+                             IsRunning="{Binding IsLoading}"
+                             IsVisible="{Binding IsLoading}" Color="#232343"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0"
+                   Grid.Row="0"
+                   FontAttributes="Bold"
+                   Text="Logradouro" 
+                   HorizontalTextAlignment="Center"
+                   TextColor="#232343"
+                   VerticalTextAlignment="Center"/>
+            <Label Grid.Column="1" 
+               Grid.Row="0"
+               Text="Bairro"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center"
+               TextColor="#232343"
+               VerticalTextAlignment="Center"/>
+            <Label Grid.Column="2" 
+               Grid.Row="0"
+               Text="Cep"
+               FontAttributes="Bold"
+                   TextColor="#232343"
+               HorizontalTextAlignment="Center" 
+               VerticalTextAlignment="Center"/>
+        </Grid>
+        <ListView x:Name="CepList">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="90" />
+                                <ColumnDefinition Width="70" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+
+                            <Label Grid.Column="0" Grid.Row="1" Text="{Binding Logradouro}" TextColor="#090949"/>
+                            <Label Grid.Column="1" Grid.Row="1" Text="{Binding Bairro}" TextColor="#090949"/>
+                            <Label Grid.Column="2" Grid.Row="1" Text="{Binding Cep}" TextColor="#090949"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
