@@ -1,5 +1,6 @@
 ﻿using BuscarCep.Models;
 using BuscarCep.Services;
+using Plugin.Connectivity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,8 +26,15 @@ namespace BuscarCep
             {
                 aparece();
                 await Task.Delay(1000);
-                List<Endereco> end = ViaCepService.BuscarCEPViaEndereco(uf.Text, cidade.Text, logradouro.Text);
-                CepList.ItemsSource = end;
+                if (CrossConnectivity.Current.IsConnected)
+                {
+                    List<Endereco> end = ViaCepService.BuscarCEPViaEndereco(uf.Text, cidade.Text, logradouro.Text);
+                    CepList.ItemsSource = end;
+                }
+                else
+                {
+                    await DisplayAlert("ERRO", "Sem internet, verifique sua conexão e tente novamente", "OK");
+                }
                 some();
             }
             catch (Exception)

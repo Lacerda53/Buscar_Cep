@@ -1,5 +1,6 @@
 ﻿using BuscarCep.Models;
 using BuscarCep.Services;
+using Plugin.Connectivity;
 using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -27,15 +28,22 @@ namespace BuscarCep
             if (CEP.Text.Length != 9)
             {
                 some();
-                await DisplayAlert("ERRO","CEP Inválido","OK");
+                await DisplayAlert("ERRO", "CEP Inválido", "OK");
             }
             else
             {
-                Endereco end = ViaCepService.BuscarEnderecoViaCEP(CEP.Text);
-                Resultado.Text = $"Endereço: {end.Localidade}-{end.Uf} \n" +
-                                (string.IsNullOrWhiteSpace(end.Logradouro) ? "" : $"Rua: {end.Logradouro}\n") +
-                                (string.IsNullOrWhiteSpace(end.Bairro) ? "" : $"Bairro: {end.Bairro}\n");
-                
+                if (CrossConnectivity.Current.IsConnected)
+                {
+
+                    Endereco end = ViaCepService.BuscarEnderecoViaCEP(CEP.Text);
+                    Resultado.Text = $"Endereço: {end.Localidade}-{end.Uf} \n" +
+                                    (string.IsNullOrWhiteSpace(end.Logradouro) ? "" : $"Rua: {end.Logradouro}\n") +
+                                    (string.IsNullOrWhiteSpace(end.Bairro) ? "" : $"Bairro: {end.Bairro}\n");
+                }
+                else
+                {
+                    await DisplayAlert("ERRO", "Sem internet, verifique sua conexão e tente novamente", "OK");
+                }
             }
             some();
         }
