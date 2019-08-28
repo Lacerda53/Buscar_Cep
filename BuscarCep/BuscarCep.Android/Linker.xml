@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<linker>
+  <assembly fullname="BuscarCep">
+    <type fullname="BuscarCep.Models*"/>
+    <type fullname="BuscarCep.Services*"/>
+    <type fullname="BuscarCep.*"/>
+  </assembly>
+</linker>
